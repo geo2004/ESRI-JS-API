@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"> 
+    <title>Map Class and View Class Relationship</title>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.16/esri/css/main.css">
+    <script src="https://js.arcgis.com/4.16/"></script>
+
+    <style>
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+    }
+    </style>
+    <script>
+    require(
+        ["esri/Map",
+         "esri/views/MapView",
+         "esri/views/SceneView"],
+         function(Map, MapView, SceneView)
+         {
+             // Create the Map with an initial basemap
+             let map = new Map({
+                 basemap: "streets-night-vector", // you can change the basemap to another basemap like 'topo' or 'streets'
+             });
+             // Create the MapView and reference the Map in the instance
+             let view1 = new MapView({
+                 container:"view1Div",
+                 map: map,
+                 //Setting a zoom level.
+                 zoom: 3,
+                 //Centering the map to a coordinate using an array.
+                 center: [106.80140335579638, -6.236526299208338]
+             });
+             let view2 = new SceneView({
+                 container:"view2Div",
+                 map: map,
+                 //Setting a zoom level.
+                 zoom: 3,
+                 //Centering the Scene to a coordinate using an array.
+                 center: [106.80140335579638, -6.236526299208338]
+             });
+         });    
+    </script>
+</head>
+
+<body>
+    <div id="view1Div" style="float: top; width: 100%; height: 50%"></div>
+    <div id="view2Div" style="float: top; width: 100%; height: 50%"></div>
+</body>
+</html>
