@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"> 
+    <title>Basemap Switch</title>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.16/esri/css/main.css">
+    <script src="https://js.arcgis.com/4.16/"></script>
+
+    <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+    </style>
+    <script>
+    require(
+        ["esri/Map",
+         "esri/views/MapView",
+         "esri/widgets/BasemapToggle",
+        ],
+         function(Map, MapView, BasemapToggle)
+         {
+             // Create the Map with an initial basemap
+             let map = new Map({
+                 basemap: "streets-night-vector", // you can change the basemap to another basemap like 'topo' or 'streets'
+             });
+             // Create the MapView and reference the Map in the instance
+             let view = new MapView({
+                 container:"viewDiv",
+                 map: map,
+                 //Setting a zoom level.
+                 zoom: 18,
+                 //Centering the map to a coordinate using an array.
+                 center: [106.80140335579638, -6.236526299208338]
+             });
+
+             // Create the Basemap Toggle and reference the view in the instance
+             var basemapToggle = new BasemapToggle({
+                 view: view,  // The view that provides access to the map's "streets-vector" basemap
+                 nextBasemap: "hybrid"  // Allows for toggling to the "hybrid" basemap
+             });
+             // Add Basemap Toggle to the top right corner of the view
+                 view.ui.add(basemapToggle, "top-right");
+         });    
+    </script>
+</head>
+
+<body>
+    <div id="viewDiv"></div>
+
+</body>
+</html>
