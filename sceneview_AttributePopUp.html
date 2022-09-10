@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"> 
+    <title>Map Class and View Class Relationship</title>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.24/esri/css/main.css">
+    <script src="https://js.arcgis.com/4.24/"></script>
+
+    <style>
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+    }
+    </style>
+    <script>
+    require(
+        ["esri/Map",
+         "esri/views/MapView",
+         "esri/views/SceneView",
+		 "esri/layers/ImageryTileLayer",
+		 "esri/renderers/UniqueValueRenderer",
+        "esri/renderers/support/UniqueValueInfo",
+		"esri/support/popupUtils"],
+         function(Map, MapView, SceneView, ImageryTileLayer, UniqueValueRenderer, UniqueValueInfo, popupUtils)
+         {
+	
+let template = {
+          title: "<b>{Raster.ClassName} </b>",
+          content: "{Raster.PopupText1}",
+          
+        };
+
+
+               let layer = new ImageryTileLayer({
+          url: "https://tiledimageservices.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/European_Space_Agency_WorldCover_2020_Land_Cover_220202a/ImageServer",
+          format: "lerc", 
+		  opacity: 0,
+		  popupTemplate: template
+		 
+        });
+			 // Create the Map with an initial basemap
+             let map2 = new Map({
+                 basemap: "satellite", // you can change the basemap to another basemap like 'topo' or 'streets'
+				 layers: [layer]
+             });
+             
+             let view2 = new SceneView({
+                 container:"view2Div",
+                 map: map2,
+                 //Setting a zoom level.
+                 zoom: 3,
+				
+                 //Centering the Scene to a coordinate using an array.
+                 center: [106.80140335579638, -6.236526299208338]
+             });
+			 
+		
+		
+         });    
+    </script>
+</head>
+
+<body>
+    <div id="view2Div" style="float: left; width: 100%; height: 100%"></div>
+</body>
+</html>
